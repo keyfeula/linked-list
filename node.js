@@ -1,4 +1,4 @@
-function createNode() {
+export function createNode() {
     return { 
         value: null,
         nextNode: null,
@@ -14,5 +14,5 @@ function createNode() {
         getNext: function() {
             return this.nextNode;
         }
-    };
+    }
 }
