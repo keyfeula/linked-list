@@ -1,18 +1,19 @@
 export function createNode() {
+    let value = null;
+    let nextNode = null;
+    
     return { 
-        value: null,
-        nextNode: null,
-        setValue: function(value) {
-            this.value = value;
+        setValue: function(newValue) {
+            value = newValue;
         },
         getValue: function() {
-            return this.value;
+            return value;
         },
         setNext: function(next) {
-            this.nextNode = next;
+            nextNode = next;
         },
         getNext: function() {
-            return this.nextNode;
+            return nextNode;
         }
     }
 }
