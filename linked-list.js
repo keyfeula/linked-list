@@ -1,6 +1,6 @@
 import { createNode } from "./node.js";
 
-function createLinkedList() {
+export function createLinkedList() {
     let head = null;
     let tail = null;
     let size = 0;
@@ -42,11 +42,18 @@ function createLinkedList() {
             return tail;
         },
         at: function(index) {
+
+            if (index > size - 1) {
+                return;
+            }
+
             let node = head;
-            for (let i = 0; i <= index; i++) {
+            let i = 0;
+            while (node !== null) {
                 if (i === index) {
                     return node;
                 }
+                i++;
                 node = node.getNext();
             }
         },
@@ -56,7 +63,7 @@ function createLinkedList() {
                 tail = null;
             }
             else {
-                let newTail = this.at(size - 1);
+                let newTail = this.at(size - 2);
                 newTail.setNext(null);
                 tail = newTail;
             }
@@ -77,6 +84,32 @@ function createLinkedList() {
             }
             return null;
         },
+        insertAt: function(value, index) {
+
+            if (index > size - 1) {
+                return;
+            }
+
+            let newNode = createNode();
+            newNode.setValue(value);
+
+            if (index === 0) {
+                this.prepend(value);
+            }
+            else if (index === size - 1) {
+                tail.setNext(newNode);
+                tail = newNode;
+                size++;
+            }
+            else {
+                let previousNode = this.at(index - 1);
+                let currentNode = this.at(index);
+                previousNode.setNext(newNode);
+                newNode.setNext(currentNode);
+                size++;
+            }
+
+        },
         toString: function() {
             let result = "";
             for (let i = 0; i < size; i++) {
@@ -89,9 +122,3 @@ function createLinkedList() {
         
     }
 }
-
-let list = createLinkedList();
-list.append("cat");
-list.append("dog");
-list.append("hamtaro");
-console.log(list.toString());
